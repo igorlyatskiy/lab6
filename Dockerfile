@@ -10,6 +10,4 @@ COPY . .
 
 EXPOSE 3000
 
-RUN npm run db:migrate
-
 CMD [ "node", "index.js" ]
