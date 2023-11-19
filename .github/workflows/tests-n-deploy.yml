@@ -1,0 +1,41 @@
+name: Tests and Deployment
+
+defaults:
+  run:
+    working-directory: .
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  tests:
+    name: Tests and Deployment
+    runs-on: ubuntu-latest
+    env:
+      DEBUG: true
+      DB_DATABASE: ${{ secrets.DB_DATABASE }}
+      DB_USERNAME: ${{ secrets.DB_USERNAME }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_PORT: ${{ secrets.DB_PORT }}
+
+      APP_HOST=localhost
+      APP_PORT=3000
+
+    steps:
+      - name: Copy Repo Files
+        uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Run npm install packages
+        run: npm install
+      - name: Run API Tests
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Deploy to production
+        uses: johnbeynon/render-deploy-action@v0.0.8
+        with:
+          service-id: ${{ secrets.MY_RENDER_SERVICE_ID }}
+          api-key: ${{ secrets.MY_RENDER_API_KEY }}
