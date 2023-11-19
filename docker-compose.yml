@@ -1,0 +1,24 @@
+version: "3.7"
+
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=test_node
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+
+  backend:
+    image: igorlyatskiy/test-node-app:latest
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    links:
+      - "db"
