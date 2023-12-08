@@ -77,6 +77,7 @@ class UsersService {
 				email: user.email,
 				nickname: user.nickname,
 				phone: user.phone,
+				role: user.role,
 			};
 		});
 
